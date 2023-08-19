@@ -1,0 +1,95 @@
+{% extends 'layout/base.html' %}
+
+{% block title %} Home {% endblock %}
+
+{% block content_section %}
+<section id="hero" class="hero d-flex flex-column justify-content-center align-items-center" data-aos="fade" data-aos-delay="1500">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-6 text-center">
+          <h2>Gráfico que compara el <span>número</span> de propiedades vendidas en función del tipo de facilidad cercana</h2>
+          <p></p>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}
+
+{% block content_body %}
+<div style="width: 90%; height: 550px; margin: auto;">
+    <canvas id="facilityTypeChart"></canvas>
+</div>
+
+<script>
+    var ctx = document.getElementById('facilityTypeChart').getContext('2d');
+    var data = JSON.parse('{{ data|safe }}');
+    
+    var labels = [
+        'Public Office', 
+        'Hospital', 
+        'Department Store', 
+        'Mall', 
+        'ETC', 
+        'Park'
+    ];
+    
+    var facilityCounts = data.map(item => [
+        item[0], 
+        item[1], 
+        item[2], 
+        item[3], 
+        item[4], 
+        item[5]
+    ]);
+
+    var totalPropiedadesVendidas = data.map(item => item[6]); // Use TotalPropiedadesVendidas from the data
+    
+    // Filtrar valores undefined o vacíos
+    facilityCounts = facilityCounts.map(counts => counts.map(value => (value !== undefined && value !== null) ? value : 0));
+    totalPropiedadesVendidas = totalPropiedadesVendidas.map(value => (value !== undefined && value !== null) ? value : 0);
+    
+    var chartData = {
+        labels: labels,
+        datasets: [
+            {
+                label: 'Total de propiedades vendidas',
+                data: totalPropiedadesVendidas,
+                backgroundColor: getRandomColor(),
+                borderColor: getRandomColor(),
+                borderWidth: 1
+            },
+            ...facilityCounts.map((counts, index) => ({
+                label: labels[index],
+                data: counts,
+                backgroundColor: getRandomColor(),
+                borderColor: getRandomColor(),
+                borderWidth: 1
+            }))
+        ]
+    };
+    
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: chartData,
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                r: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    function getRandomColor() {
+        var letters = '0123456789ABCDEF';
+        var color = '#';
+        for (var i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
+</script>
+
+{% endblock %}    

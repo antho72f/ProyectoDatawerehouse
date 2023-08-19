@@ -1,0 +1,95 @@
+{% extends 'layout/base.html' %}
+
+{% block title %} Home {% endblock %}
+
+{% block content_section %}
+{% endblock %}
+
+{% block content_body %}
+    <h1>Comparacion de dimenciones</h1>
+    <div>
+        <label for="dimensionSelect">Selecciona una dimensión:</label>
+        <select id="dimensionSelect">
+            {% for dimension in dimensions %}
+            <option value="{{ dimension }}">{{ dimension }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div style="width: 90%; height: 550px; margin: auto;">
+        <canvas id="comparisonBarChart"></canvas>
+    </div>
+
+    <script>
+        var ctx = document.getElementById('comparisonBarChart').getContext('2d');
+        var data = JSON.parse('{{ data|safe }}');
+        
+        var selectedDimension = document.getElementById('dimensionSelect').value;
+        var dimensionData = data[selectedDimension];
+        
+        var labels = Object.keys(dimensionData[0]);
+        var datasets = [];
+        
+        var colors = [
+            '#4CAF50', // Verde claro
+            '#2196F3', // Azul claro
+            '#FFC107', // Amarillo claro
+            '#FF5722', // Naranja claro
+            '#E91E63'  // Rosa claro
+        ];
+        
+        for (var i = 1; i < labels.length; i++) {
+            var values = dimensionData.map(item => item[labels[i]]);
+            datasets.push({
+                label: labels[i],
+                data: values,
+                backgroundColor: colors[i % colors.length], // Usar colores cíclicos
+                borderWidth: 1,
+                borderColor: 'rgba(255, 255, 255, 1)' // Borde blanco
+            });
+        }
+        
+        var chartData = {
+            labels: dimensionData.map(item => item[labels[0]]),
+            datasets: datasets
+        };
+        
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: chartData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        stacked: true
+                    },
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        document.getElementById('dimensionSelect').addEventListener('change', function() {
+            selectedDimension = this.value;
+            dimensionData = data[selectedDimension];
+            labels = Object.keys(dimensionData[0]);
+            datasets = [];
+        
+            for (var i = 1; i < labels.length; i++) {
+                var values = dimensionData.map(item => item[labels[i]]);
+                datasets.push({
+                    label: labels[i],
+                    data: values,
+                    backgroundColor: colors[i % colors.length], // Usar colores cíclicos
+                    borderWidth: 1,
+                    borderColor: 'rgba(255, 255, 255, 1)' // Borde blanco
+                });
+            }
+            
+            myChart.data.labels = dimensionData.map(item => item[labels[0]]);
+            myChart.data.datasets = datasets;
+            myChart.update();
+        });
+    </script>   
+{% endblock %}

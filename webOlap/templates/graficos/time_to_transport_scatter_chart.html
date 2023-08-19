@@ -1,0 +1,107 @@
+{% extends 'layout/base.html' %}
+
+{% block title %} Home {% endblock %}
+
+{% block content_section %}
+<section id="hero" class="hero d-flex flex-column justify-content-center align-items-center" data-aos="fade" data-aos-delay="1500">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-6 text-center">
+          <h2>Gráfico de dispersión que ilustra la relación entre el <span>tiempo</span> necesario para llegar a una estación de autobús o metro y el  promedio de venta de la propiedad</h2>
+          <p></p>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}
+
+{% block content_body %}
+<div style="width: 70%; height: 550px; margin: auto;">
+    <canvas id="timeToTransportChart"></canvas>
+</div>
+
+<script>
+    var ctx = document.getElementById('timeToTransportChart').getContext('2d');
+    var data = JSON.parse('{{ data|safe }}');
+    
+    var timeToTransport = data.map(item => item[0]);
+    var avgPrices = data.map(item => item[1]);
+    var colors = generateRandomColors(timeToTransport.length);
+    
+    var chartData = {
+        labels: timeToTransport.map(String),
+        datasets: [{
+            label: 'Precio Promedio de Venta',
+            data: avgPrices,
+            backgroundColor: colors,
+            pointBackgroundColor: colors, // Color de los puntos
+            pointBorderColor: '#fff', // Color del borde de los puntos
+            pointRadius: 5, // Tamaño de los puntos
+            borderWidth: 1
+        }],
+    };
+    
+    var myChart = new Chart(ctx, {
+        type: 'scatter', // Cambiamos a un gráfico de dispersión
+        data: chartData,
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false // Ocultamos la leyenda si no es necesaria
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            var label = context.label || '';
+                            if (label) {
+                                label += ': ';
+                            }
+                            if (context.parsed.y !== null) {
+                                label += context.parsed.y.toFixed(2);
+                            }
+                            return label;
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    type: 'linear', // Usamos una escala lineal para el eje x
+                    position: 'bottom', // Posición del eje x
+                    title: {
+                        display: true,
+                        text: 'Time to Bus Stop' // Etiqueta del eje x
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Precio Promedio de Venta' // Etiqueta del eje y
+                    }
+                }
+            }
+        }
+    });
+
+    function generateRandomColors(count) {
+        var colors = [];
+        for (var i = 0; i < count; i++) {
+            colors.push(getRandomColor());
+        }
+        return colors;
+    }
+
+    function getRandomColor() {
+        var letters = '0123456789ABCDEF';
+        var color = '#';
+        for (var i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
+</script>
+
+
+{% endblock %}

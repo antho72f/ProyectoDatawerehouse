@@ -1,0 +1,42 @@
+# Base de datos
+DATABASES = {
+    'default': {
+        'ENGINE': 'mssql',
+        'NAME': 'proyectoDataWereHouse',
+        'HOST': 'DESKTOP-TCUDOEU\SQLEXPRESS', # O dirección IP del servidor
+        'PORT': '1433', # Deja en blanco para usar el puerto predeterminado de SQL Server (1433)
+        'USER': 'sa', # Tu usuario de SQL Server
+        'PASSWORD': '1234', 
+        'OPTIONS': {
+            'driver': 'ODBC Driver 17 for SQL Server', # Driver de ODBC para SQL Server 2017 o posterior
+        },
+    }
+}
+
+
+# Comandos 
+
+python -m venv env
+
+env/Scripts/activate 
+
+pip install django  
+
+pip install django mssql-django
+
+pip list
+
+django-admin startproject datawerehouse .
+
+python manage.py startapp webOlap
+
+#python manage.py inspectdb > webOlap/models.py
+#python manage.py inspectdb > models.py
+
+python manage.py makemigrations
+python manage.py migrate
+
+python manage.py runserver
+
+
+#Agregar la conexion a la base de datos y no volver a hacer otro migrate...

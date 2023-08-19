@@ -1,0 +1,53 @@
+{% extends 'layout/base.html' %}
+
+{% block title %} Home {% endblock %}
+
+{% block content_section %}
+<section id="hero" class="hero d-flex flex-column justify-content-center align-items-center" data-aos="fade" data-aos-delay="1500">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-6 text-center">
+          <h2>Total de <span> propiedades</span> vendidas por año</h2>
+          <p></p>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}
+
+{% block content_body %}
+    <div style="width: 80%; height: 550px; margin: auto;">
+        <canvas id="salesChart"></canvas>
+    </div>
+    <script>
+        var ctx = document.getElementById('salesChart').getContext('2d');
+        var data = JSON.parse('{{ data|safe }}');
+        
+        var years = data.map(item => item[0]);
+        var months = data.map(item => item[1]);
+        var totalSales = data.map(item => item[2]);
+        
+        var chartData = {
+            labels: years.map((year, index) => year + '-' + months[index]),
+            datasets: [{
+                label: 'Total Propiedades Vendidas por año',
+                data: totalSales,
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        };
+        
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: chartData,
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script> 
+{% endblock %}
