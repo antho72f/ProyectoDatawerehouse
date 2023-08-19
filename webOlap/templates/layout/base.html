@@ -58,7 +58,7 @@
           <li><a href="{% url 'about' %}" class="{% if '/webOlap/about' in request.path %}active{% endif %}">About</a></li>
           <li class="dropdown"><a href="#"><span>Gráficos</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
             <ul>
-              <li><a href="{% url 'grafico_ventas' %}" class="{% if '/webOlap/grafico_ventas' in request.path %}active{% endif %}">Gráfico de Ventas de propiedades por año</a></li>
+              <li><a href="{% url 'grafico_ventas' %}" class="{% if '/webOlap/grafico_ventas' in request.path %}active{% endif %}">Gráfico de Ventas de propiedades por año y mes</a></li>
               <li><a href="{% url 'comparacion_ubicaciones' %}" class="{% if '/webOlap/comparacion_ubicaciones' in request.path %}active{% endif %}">Comparación de Ubicaciones</a></li>
               <li><a href="{% url 'grafico_impacto_facilidades' %}" class="{% if '/webOlap/grafico_impacto_facilidades' in request.path %}active{% endif %}">Gráfico de Impacto de facilidades cercanas en ventas</a></li>
               <li><a href="{% url 'comparacion_tipos_escuelas' %}" class="{% if '/webOlap/comparacion_tipos_escuelas' in request.path %}active{% endif %}">Grífico de Comparación de ventas por tipo de escuela cercana</a></li>
