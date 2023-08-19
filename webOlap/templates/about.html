@@ -8,36 +8,49 @@
       <div class="row d-flex justify-content-center">
         <div class="col-lg-6 text-center">
           <h2>About</h2>
-          <p>Se ha creado un sistema de análisis de datos inmobiliarios que consta de una base de datos relacional que incluye las tablas "realState" y "realStateCleaned". Luego, se ha diseñado un cubo OLAP que se compone de dimensiones como tiempo, ubicación, tamaño, facilidades y venta, con una tabla de hechos llamada "HechosVentas".
+          <p style="text-align: left;">
+            Se ha creado un sistema de análisis de datos inmobiliarios que consta de una base de datos relacional que incluye las tablas "realState (dataset)" y "realStateCleaned (dataset con ETL)". Luego, se ha diseñado un cubo OLAP(modelo estrella) que se compone de dimensiones como tiempo, ubicación, tamaño, facilidades y venta, con una tabla de hechos llamada "HechosVentas".
+            <br>
             <br>
             DimTiempo: Captura datos temporales como el año de construcción, año de venta y mes de venta.
             <br>
+            <br>
             DimUbicacion: Almacena información sobre la ubicación de las propiedades, incluyendo tiempos de acceso a paradas de autobús y metro, así como la estación de metro más cercana.
+            <br>
             <br>
             DimTamaño: Contiene detalles sobre el tamaño y la planta de las propiedades.
             <br>
+            <br>
             DimFacilidades: Registra la cantidad de facilidades cercanas, como oficinas públicas, hospitales, centros comerciales, etc., así como la cercanía a escuelas de diferentes niveles.
             <br>
-            DimVenta: Ofrece información sobre los precios de venta de las propiedades.
-            Las transformaciones y cargas de datos se realizaron mediante procedimientos almacenados en SQL.
+            <br>
+            DimVenta: Ofrece información sobre los precios de venta de las propiedades. Las transformaciones y cargas de datos se realizaron mediante procedimientos almacenados en SQL.
             <br>
             <br>
             Graficas:
             <br>
-            Total de Propiedades Vendidas por Año:
+            Total de Propiedades Vendidas por Año: Gráfico  que muestra la cantidad total de propiedades vendidas a lo largo de los años. Permite identificar tendencias en las ventas a lo largo del tiempo.
             <br>
-            Gráfico de barras o línea que muestra la cantidad total de propiedades vendidas a lo largo de los años. Permite identificar tendencias en las ventas a lo largo del tiempo.
-            Comparación del Número de Propiedades Vendidas por Ubicación:
-            
-            Gráfico de barras apiladas o gráfico de dispersión que compara el número de propiedades vendidas en función de la ubicación. Ayuda a visualizar la distribución de ventas en diferentes áreas.
-            Impacto de Facilidades Cercanas en el Precio de Venta y la Cantidad de Ventas:
-            
-            Gráficos de dispersión o diagramas de caja que muestran cómo la presencia de facilidades cercanas influye en el precio de venta y la cantidad de propiedades vendidas. Facilita la identificación de patrones relacionados con las facilidades cercanas.
-            Comparación del Número de Propiedades Vendidas por Tipo de Escuela Cercana:
-            
-            Gráfico de barras o gráfico de pastel que compara el número de propiedades vendidas según el tipo de escuela cercana. Ayuda a entender la influencia de las escuelas en las ventas de propiedades.</p>
-
-          <a class="cta-btn" href="https://github.com/antho72f/ProyectoDatawerehouse.git">Githuh</a>
+            <br>
+            Comparación del Número de Propiedades Vendidas por Ubicación: Gráfico que compara el número de propiedades vendidas en función de la ubicación. Ayuda a visualizar la distribución de ventas en diferentes áreas.
+            <br>
+            <br>
+            Impacto de Facilidades Cercanas en el Precio de Venta y la Cantidad de Ventas: Gráficos  que muestra cómo la presencia de facilidades cercanas influye en el precio de venta y la cantidad de propiedades vendidas. Facilita la identificación de patrones relacionados con las facilidades cercanas.
+            <br>
+            <br>
+            Comparación del Número de Propiedades Vendidas por Tipo de Escuela Cercana: Gráfico que compara el número de propiedades vendidas según el tipo de escuela cercana. Ayuda a entender la influencia de las escuelas en las ventas de propiedades.
+            <br>
+            <br>
+            Conclusiones: 
+            La demanda de propiedades varía significativamente a lo largo de los años, lo que sugiere la importancia de ajustar estrategias de inversión según las tendencias temporales.
+            <br>
+            <br>
+            La ubicación sigue siendo un factor crucial en el mercado inmobiliario, con ciertas áreas destacando por un mayor número de ventas.
+            <br>
+            <br>
+            La proximidad a servicios como hospitales y escuelas influye positivamente en los precios y la velocidad de venta de las propiedades, lo que resalta la importancia de considerar estas facilidades en la planificación inmobiliaria.
+        </p>        
+          <a class="cta-btn" href="https://github.com/antho72f/ProyectoDatawerehouse.git" Target="_blank">Githuh</a>
 
         </div>
       </div>
